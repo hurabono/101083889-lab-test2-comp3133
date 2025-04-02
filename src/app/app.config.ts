@@ -1,9 +1,16 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+
+// Angular Material modules
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration()]
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(withInterceptorsFromDi()),
+    importProvidersFrom(MatCardModule, MatProgressSpinnerModule)
+  ]
 };
